@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/options";
-import Aside from "../components/admin/Aside";
+import Aside from "../../components/frontend/admin/Aside";
 
 export default async function RootLayout({
   children,
@@ -16,7 +16,7 @@ export default async function RootLayout({
           {children}
         </div>
       ) : (
-        <span>RIp</span>
+        <span>RIP</span>
       )}
     </>
   );

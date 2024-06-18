@@ -7,5 +7,5 @@ export default async function Page() {
   //ALTER BIDS
   //ADD SPECIFICS
   //ALTER PRODUCTS
-  return <div> whats sup</div>
+  return <div className="p-4"> whats sup</div>
 }

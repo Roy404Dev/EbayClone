@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { getServerSession } from "next-auth";
-import SessionWrapper from "./components/SessionWrapper";
+import SessionWrapper from "../components/SessionWrapper";
+import { ReactQueryClientProvider } from "@/utils/ReactQueryClientProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,10 +16,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SessionWrapper>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
-      </html>
-    </SessionWrapper>
+    <ReactQueryClientProvider>
+      <SessionWrapper>
+        <html lang="en">
+          <body className={inter.className}>{children}</body>
+        </html>
+      </SessionWrapper>
+    </ReactQueryClientProvider>
   );
 }

@@ -6,7 +6,7 @@ export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   adapter: SupabaseAdapter({
     url: process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
-    secret: process.env.SUPABASE_SERVICE_ROLE_KEY ?? "",
+    secret: process.env.NEXT_SUPABASE_SERVICE_ROLE_KEY ?? "",
   }),
   providers: [
     GithubProvider({
@@ -15,21 +15,26 @@ export const authOptions: NextAuthOptions = {
     }),
     // ...add more providers here
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async session({ session, user }) {
-      const signingSecret = process.env.SUPABASE_JWT_SECRET
-      if (signingSecret) {
-        const payload = {
-          aud: "authenticated",
-          exp: Math.floor(new Date(session.expires).getTime() / 1000),
-          sub: user.id,
-          email: user.email,
-          role: "authenticated",
-        }
-        session.supabaseAccessToken = jwt.sign(payload, signingSecret)
+    jwt({ token, user }) {
+      if (user) {
+        return { ...token, id: user.id }; // Save id to token as docs says: https://next-auth.js.org/configuration/callbacks
       }
-      return session
+      return token;
+    },
+    session: ({ session, token, user }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          // id: user.id, // This is copied from official docs which find user is undefined
+          id: token.id, // Get id from token instead
+        },
+      };
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",
+  },
 };

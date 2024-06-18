@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,6 +7,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        "carousel-image":
+          "url('../public/images/frank-mckenna-OD9EOzfSOh0-unsplash.jpg')",
+      },
     },
   },
   plugins: [],
