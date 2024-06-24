@@ -4,6 +4,7 @@ import React from "react";
 import logo from "@/_assets/images/logo.svg";
 
 export default function Header() {
+  
   return (
     <div className="border-b-2 border-gray-200">
       <div className="mx-auto flex max-w-7xl items-center gap-2 px-4 xl:px-0">
@@ -17,19 +18,19 @@ export default function Header() {
           <select
             name="All categories"
             id="categoriesId"
-            className="border-l-2 border-black"
-            defaultValue={'DEFAULT'}
+            className="border-l-2 border-black hidden sm:block"
+            defaultValue={"DEFAULT"}
           >
-            <option value="DEFAULT">
-              All categories
-            </option>
+            <option value="DEFAULT">All categories</option>
             <option value=""></option>
             <option value=""></option>
             <option value=""></option>
           </select>
         </div>
-        <button className="bg-blue-600 px-16 py-2 text-white">Search</button>
-        <button>
+        <button className="bg-blue-600 px-6 py-2 text-white md:px-16">
+          Search
+        </button>
+        <button className="hidden lg:block">
           <span className="text-xs text-gray-600 underline">Advanced</span>
         </button>
       </div>

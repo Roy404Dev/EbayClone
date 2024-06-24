@@ -6,7 +6,7 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import { cookies } from "next/headers";
-import getCategories from "@/hooks/queries/get-categories";
+import getCategories from "@/hooks/func/get-categories";
 import { prefetchQuery } from "@supabase-cache-helpers/postgrest-react-query";
 import Products from "./Products";
 import { createClient } from "@/utils/supabase/server/server";

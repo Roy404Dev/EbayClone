@@ -1,3 +1,4 @@
+import { FaArrowRight } from "react-icons/fa";
 import PopularCategories from "@/components/PopularCategories/PopularCategories";
 import BannerLayout from "@/components/UI/Banner/BannerLayout";
 import BannerSub from "@/components/UI/Banner/BannerSub";
@@ -22,11 +23,10 @@ const MainLayout = async () => {
     queryKey: ["popularCategories"],
     queryFn: usePopularCategoriesQuery,
   });
-  //TODO store theme variables somewhere else
   return (
-    <main className="mx-auto flex flex-col gap-8">
+    <main className="mx-auto flex flex-col gap-8 px-4 md:px-0">
       <Carousel />
-      <DealBanner bgClr="#F7F7F7">
+      <DealBanner bgClr="bg-[#F7F7F7]">
         <DealBannerContent>
           <div>
             <DealBannerTitle>
@@ -40,14 +40,10 @@ const MainLayout = async () => {
           </div>
           <EffectButton
             buttonName="Code: SikSikSik"
-            theme={{
-              textClr: "black",
-              borderClr: "black",
-              hoverBgClr: "black",
-              hoverTextClr: "white",
-              hoverBorderClr: "white",
-            }}
+            theme="black"
+            additionalClassName="hidden lg:block"
           />
+          <button className="flex align-middle items-center gap-2 md:hidden">Code: SikSikSik<FaArrowRight /></button>
         </DealBannerContent>
       </DealBanner>
       <HydrationBoundary state={dehydrate(queryClient)}>
@@ -60,16 +56,7 @@ const MainLayout = async () => {
         <BannerSub className="text-lg text-white">
           Get your boat in the best shape of its life.
         </BannerSub>
-        <EffectButton
-          buttonName="Hop on board"
-          theme={{
-            textClr: "white",
-            borderClr: "white",
-            hoverBgClr: "white",
-            hoverTextClr: "black",
-            hoverBorderClr: "white",
-          }}
-        />
+        <EffectButton buttonName="Hop on board" theme="white" />
       </BannerLayout>
       <BannerLayout bgColor="#F7F7F7">
         <BannerTitle className="text-4xl font-[700] text-black">
@@ -78,16 +65,7 @@ const MainLayout = async () => {
         <BannerSub className="text-lg text-black">
           Get your boat in the best shape of its life.
         </BannerSub>
-        <EffectButton
-          buttonName="Hop on board"
-          theme={{
-            textClr: "black",
-            borderClr: "white",
-            hoverBgClr: "black",
-            hoverTextClr: "white",
-            hoverBorderClr: "white",
-          }}
-        />
+        <EffectButton buttonName="Hop on board" theme="black" />
       </BannerLayout>
     </main>
   );

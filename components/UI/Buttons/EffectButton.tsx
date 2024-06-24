@@ -2,23 +2,34 @@ import React from "react";
 
 type EffectButtonType = {
   buttonName: string;
-  theme?: {
-    textClr?: string;
-    borderClr?: string;
-    hoverTextClr?: string;
-    hoverBorderClr?: string;
-    hoverBgClr?: string;
-  };
+  theme: "white" | "black" | "blue";
+  additionalClassName?: string;
 };
 
-const EffectButton = ({ buttonName, theme }: EffectButtonType) => {
+const EffectButton = ({
+  buttonName,
+  theme,
+  additionalClassName,
+}: EffectButtonType) => {
+  const buttonVariants = {
+    black: "border-black hover:border-black text-black hover:text-white",
+    white: "border-white hover:border-white text-white hover:text-black",
+    blue: "border-black hover:border-indigo-500 text-black hover:text-white",
+  };
+
+  const buttonVariantsSpan = {
+    black: "bg-black",
+    white: "bg-white",
+    blue: "bg-indigo-500",
+  };
+
   return (
     <button
-      className={`group relative overflow-hidden rounded-full border-2 border-${theme?.borderClr} px-4 py-2 hover:border-${theme?.hoverBorderClr} text-${theme?.textClr} hover:text-[${theme?.hoverTextClr}]`}
+      className={`group relative overflow-hidden rounded-full border-2 px-4 py-2 ${buttonVariants[theme]} ${additionalClassName}`}
     >
       <span className={`relative z-10 font-semibold`}>{buttonName}</span>
       <span
-        className={`duration-400 absolute inset-0 scale-0 rounded-full bg-${theme?.hoverBgClr} transition-transform group-hover:scale-100`}
+        className={`duration-400 absolute inset-0 scale-0 rounded-full ${buttonVariantsSpan[theme]} transition-transform group-hover:scale-100`}
       ></span>
     </button>
   );

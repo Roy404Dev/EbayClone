@@ -6,11 +6,10 @@ import Footer from "@/components/layout/Footer/Footer";
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="overflow-x-hidden">
       <Banner />
       <Header />
       <Tabs />
-      {/* max-w-[90em] */}
       <MainLayout />
       <Footer />
     </div>

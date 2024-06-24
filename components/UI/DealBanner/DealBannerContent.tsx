@@ -5,5 +5,9 @@ export const DealBannerContent = ({
 }: {
   children: React.ReactNode;
 }) => {
-  return <div className="flex items-center justify-between">{children}</div>;
+  return (
+    <div className="md:items-center md:flex-row flex flex-col justify-between">
+      {children}
+    </div>
+  );
 };

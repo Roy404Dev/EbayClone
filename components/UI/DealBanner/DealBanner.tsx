@@ -8,6 +8,10 @@ export const DealBanner = ({
   bgClr: string;
 }) => {
   return (
-    <div className={`mx-auto w-full max-w-7xl bg-[${bgClr}] px-4 py-8 rounded-2xl`}>{children}</div>
+    <div
+      className={`mx-auto w-full max-w-7xl ${bgClr} rounded-2xl px-4 py-8`}
+    >
+      {children}
+    </div>
   );
 };

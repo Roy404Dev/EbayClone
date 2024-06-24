@@ -50,7 +50,7 @@ const Carousel = () => {
   }, [imagesLength]);
 
   return (
-    <div className="relative mx-auto max-w-[90em]">
+    <div className="md:px-0 relative mx-auto w-full  max-w-[90em]">
       <button
         className="absolute -left-4 top-1/2 z-10 rounded-full bg-white p-2 shadow-xl"
         onClick={showPrevImage}

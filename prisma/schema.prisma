@@ -1,14 +1,196 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  schemas   = ["next_auth", "public"]
+}
+
+model accounts {
+  id                 String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         BigInt?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+  userId             String?          @db.Uuid
+  users              next_auth_users? @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([provider, providerAccountId], map: "provider_unique")
+  @@schema("next_auth")
+}
+
+model sessions {
+  id           String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  expires      DateTime         @db.Timestamptz(6)
+  sessionToken String           @unique(map: "sessiontoken_unique")
+  userId       String?          @db.Uuid
+  users        next_auth_users? @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@schema("next_auth")
+}
+
+model next_auth_users {
+  id            String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name          String?
+  email         String?       @unique(map: "email_unique")
+  emailVerified DateTime?     @db.Timestamptz(6)
+  image         String?
+  accounts      accounts[]
+  sessions      sessions[]
+  users         public_users?
+
+  @@map("users")
+  @@schema("next_auth")
+}
+
+model verification_tokens {
+  identifier String?
+  token      String   @id
+  expires    DateTime @db.Timestamptz(6)
+
+  @@unique([token, identifier], map: "token_identifier_unique")
+  @@schema("next_auth")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model bids {
+  id         BigInt   @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  user_id    String?  @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  product_id BigInt?
+  amount     Int?
+  product    product? @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@schema("public")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model brands {
+  id         BigInt   @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  brand_name String?  @db.VarChar
+  product_id BigInt?
+  product    product? @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@schema("public")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model categories {
+  id         BigInt    @id @default(autoincrement())
+  created_at DateTime  @default(now()) @db.Timestamptz(6)
+  label      String?   @db.VarChar
+  product    product[]
+
+  @@schema("public")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model group {
+  id         BigInt   @id(map: "Group_pkey") @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  group_name String?  @db.VarChar
+
+  @@schema("public")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model popular_categories {
+  id         BigInt   @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  label      String?  @default("\"\"") @db.VarChar
+  image_url  String?
+
+  @@schema("public")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model product {
+  id           BigInt      @id @default(autoincrement())
+  created_at   DateTime    @default(now()) @db.Timestamptz(6)
+  product_name String?
+  user_id      String      @default(dbgenerated("next_auth.uid()")) @db.Uuid
+  category_id  BigInt?
+  group        BigInt?
+  bids         bids[]
+  brands       brands[]
+  categories   categories? @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  reviews      reviews[]
+  specifics    specifics[]
+
+  @@schema("public")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model reviews {
+  id         BigInt   @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  body       String?
+  user_id    String?  @db.Uuid
+  product_id BigInt?
+  rating     Float?   @db.Real
+  product    product? @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@schema("public")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model role_permissions {
+  id         Int          @id @default(autoincrement()) @db.SmallInt
+  role       String?      @db.VarChar
+  permission String?      @db.VarChar
+  user_roles user_roles[]
+
+  @@schema("public")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model specifics {
+  id         BigInt   @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  product_id BigInt?
+  label      String?  @db.VarChar
+  body       String?
+  product    product? @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("public")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model user_roles {
+  id               BigInt            @id @default(autoincrement())
+  user_id          String?           @default(dbgenerated("next_auth.uid()")) @db.Uuid
+  role_id          Int?              @db.SmallInt
+  role_permissions role_permissions? @relation(fields: [role_id], references: [id], onDelete: Cascade)
+
+  @@schema("public")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model public_users {
+  id    String          @id @db.Uuid
+  name  String?
+  email String?
+  image String?
+  users next_auth_users @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@map("users")
+  @@schema("public")
 }

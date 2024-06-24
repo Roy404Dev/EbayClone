@@ -1,6 +1,7 @@
 import useSupabaseBrowser from "@/utils/supabase-browser";
-import { getPopularCategories } from "./getPopularCategories";
+import { getPopularCategories } from "../func/getPopularCategories";
 import { useQuery } from "@tanstack/react-query";
+
 function usePopularCategoriesQuery() {
   const client = useSupabaseBrowser();
   const queryKey = ["popularCategories"];

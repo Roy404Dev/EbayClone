@@ -1,5 +1,4 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/options";
+import PrivateWrapper from "@/components/PrivateWrapper";
 import Aside from "../../components/frontend/admin/Aside";
 
 export default async function RootLayout({
@@ -7,17 +6,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession(authOptions);
   return (
-    <>
-      {session ? (
-        <div className="flex">
-          <Aside />
-          {children}
-        </div>
-      ) : (
-        <span>RIP</span>
-      )}
-    </>
+    <PrivateWrapper>
+      <div className="flex">
+        <Aside />
+        {children}
+      </div>
+    </PrivateWrapper>
   );
 }

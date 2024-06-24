@@ -11,6 +11,7 @@ const Aside = () => {
           <li><Link href="/admin/products" className='text-white cursor-pointer '>Products</Link></li>
           <li><Link href="/admin/categories" className='text-white cursor-pointer '>Categories</Link></li>
           <li><Link href="/admin/users" className='text-white cursor-pointer '>Users</Link></li>
+          <li><Link href="/admin/groups" className='text-white cursor-pointer '>Groups</Link></li>
         </ul>
       </div>
     </aside>

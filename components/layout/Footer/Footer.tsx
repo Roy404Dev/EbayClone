@@ -3,8 +3,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="border-t-2 bg-neutral-100 mt-4">
-      <div className="row mx-auto grid max-w-7xl grid-cols-5 pt-16">
+    <footer className="mt-4 border-t-2 bg-neutral-100">
+      <div className="row md:grid  mx-auto hidden max-w-7xl grid-cols-5 py-16">
         <div className="">
           <ul>
             <span className="text-xs font-bold">Buy</span>
@@ -136,6 +136,20 @@ const Footer = () => {
             </li>
           </ul>
         </div>
+      </div>
+      {/* =====Mobile or tablet device===== */}
+      <div className="md:hidden px-8 py-16">
+        <ul className="flex gap-4 text-nowrap flex-wrap">
+          <li className="text-xs">About eBay</li>
+          <li className="text-xs">Announcements</li>
+          <li className="text-xs">Community</li>
+          <li className="text-xs">Security Center</li>
+          <li className="text-xs">Seller Information Center </li>
+          <li className="text-xs">Policies</li>
+          <li className="text-xs">Affiliates</li>
+          <li className="text-xs">Help & Contact</li>
+          <li className="text-xs">Site map</li>
+        </ul>
       </div>
     </footer>
   );

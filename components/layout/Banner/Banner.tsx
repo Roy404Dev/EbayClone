@@ -6,18 +6,18 @@ import cartIcon from "@/_assets/icons/CartIcon.svg";
 export default function Banner() {
   return (
     <div className="border-b-2 border-gray-200">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-1 xl:px-0">
+      <div className="xl:px-0 mx-auto flex max-w-7xl items-center justify-between px-4 py-1">
         <div className="flex items-center gap-1 text-xs">
           <span className="">Hi!</span>
           <Link
-            href="/api/auth/signin"
+            href="/login"
             className="cursor-pointer text-blue-500 underline"
           >
             Sign in
           </Link>
           <span>or</span>
           <Link
-            href="/api/auth/signup"
+            href="/signup"
             className="cursor-pointer text-blue-500 underline"
           >
             register
