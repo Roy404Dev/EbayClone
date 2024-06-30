@@ -11,6 +11,9 @@ const config: Config = {
         "carousel-image":
           "url('../public/images/frank-mckenna-OD9EOzfSOh0-unsplash.jpg')",
       },
+      gridTemplateColumns: {
+        'categoryLayout': '30% minmax(900px, 1fr)'
+      }
     },
     screens: {
       'sm': '640px',
@@ -20,6 +23,7 @@ const config: Config = {
       '2xl': '1536px',
     }
   },
+  
   plugins: [],
 };
 export default config;

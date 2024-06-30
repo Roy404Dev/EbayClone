@@ -1,28 +1,41 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
+// Define the payload type
+type payloadType = {
+  category_id: number;
+  created_at: string;
+  id: number;
+  label: string;
+  image_url: string | null;
+};
+
+// Initial state type
+type CategoryState = {
+  value: payloadType[];
+};
+
+// Create the slice with the correct initial state type
 export const categorySlice = createSlice({
-  name: 'counter',
+  name: "categories",
   initialState: {
-    value: 0
-  },
+    value: [
+      {
+        category_id: 0,
+        created_at: '',
+        id: 0,
+        label: '',
+        image_url: null
+      }
+    ],
+  } as CategoryState,
   reducers: {
-    increment: state => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1
+    increment: (state, action: PayloadAction<payloadType[]>) => {
+      state.value = action.payload;
     },
-    decrement: state => {
-      state.value -= 1
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload
-    }
-  }
-})
+  },
+});
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = categorySlice.actions
+export const { increment } = categorySlice.actions;
 
-export default categorySlice.reducer
+export default categorySlice.reducer;

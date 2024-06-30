@@ -12,9 +12,9 @@ export default async function LoginPage() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
   const { data: user } = await supabase.auth.getUser();
-  // if (user) {
-  //   return redirect("/");
-  // }
+  if (user) {
+    return redirect("/");
+  }
 
   async function signOut() {
     const { error } = await supabase.auth.signOut();
@@ -23,7 +23,7 @@ export default async function LoginPage() {
 
   return (
     <>
-      <Logo />
+      <Logo customStyles="absolute m-8"/>
       <form className="mx-auto flex h-screen w-full max-w-96 flex-col justify-center gap-4 text-center">
         <span className="text-4xl font-bold text-slate-900">Hello</span>
         <span>

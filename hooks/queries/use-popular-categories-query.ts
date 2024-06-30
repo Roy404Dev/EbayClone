@@ -1,16 +1,22 @@
-import useSupabaseBrowser from "@/utils/supabase-browser";
 import { getPopularCategories } from "../func/getPopularCategories";
-import { useQuery } from "@tanstack/react-query";
+import { TypedSupabaseClient } from "@/utils/types";
 
-function usePopularCategoriesQuery() {
-  const client = useSupabaseBrowser();
+function usePopularCategoriesQuery({
+  client,
+}: {
+  client: TypedSupabaseClient;
+}) {
   const queryKey = ["popularCategories"];
 
   const queryFn = async () => {
     return getPopularCategories(client).then((result) => result.data);
   };
 
-  return useQuery({ queryKey: queryKey, queryFn: queryFn, staleTime: 60 * 60 * 1000 * 24 });
+  return {
+    queryKey,
+    queryFn,
+    staleTime: 60 * 60 * 1000 * 24,
+  };
 }
 
 export default usePopularCategoriesQuery;

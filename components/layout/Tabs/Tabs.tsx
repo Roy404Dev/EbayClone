@@ -71,57 +71,57 @@ const Tabs = () => {
         ref={listRef}
       >
         <li className="text-nowrap">
-          <Link href="" data-attr="tab">
+          <Link href="/category/Saved" data-attr="tab">
             Saved
           </Link>
         </li>
         <li className="text-nowrap">
-          <Link href="" data-attr="tab">
+          <Link href="/category/Electronics" data-attr="tab">
             Electronics
           </Link>
         </li>
         <li className="text-nowrap">
-          <Link href="" data-attr="tab">
+          <Link href="/category/Motors" data-attr="tab">
             Motors
           </Link>
         </li>
         <li className="text-nowrap">
-          <Link href="" data-attr="tab">
+          <Link href="/category/Fashion" data-attr="tab">
             Fashion
           </Link>
         </li>
         <li className="text-nowrap">
-          <Link href="" data-attr="tab">
+          <Link href="/category/collectibles-Art" data-attr="tab">
             Collectibles and Art
           </Link>
         </li>
         <li className="text-nowrap">
-          <Link href="" data-attr="tab">
+          <Link href="/category/sports" data-attr="tab">
             Sports
           </Link>
         </li>
         <li className="text-nowrap">
-          <Link href="" data-attr="tab">
+          <Link href="/category/Health-beauty" data-attr="tab">
             Health & Beauty
           </Link>
         </li>
         <li className="text-nowrap">
-          <Link href="" data-attr="tab">
+          <Link href="/category/Industrial-equipment" data-attr="tab">
             Industrial equipment
           </Link>
         </li>
         <li className="text-nowrap">
-          <Link href="" data-attr="tab">
+          <Link href="/category/Home-Garden" data-attr="tab">
             Home & Garden
           </Link>
         </li>
         <li className="text-nowrap">
-          <Link href="" data-attr="tab">
+          <Link href="/category/Deals" data-attr="tab">
             Deals
           </Link>
         </li>
         <li className="text-nowrap">
-          <Link href="" data-attr="tab">
+          <Link href="/category/Sells" data-attr="tab">
             Sell
           </Link>
         </li>

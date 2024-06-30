@@ -1,22 +1,54 @@
 "use client";
-import { useSession } from "next-auth/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client/client";
+import { Session } from "@supabase/supabase-js";
+import { JwtPayload, jwtDecode } from "jwt-decode";
+
+interface JwtPayloadType extends JwtPayload {
+  user_role: string;
+}
 
 const ProductForm = () => {
-  const [data, setData] = useState({
+  const [productData, setproductData] = useState({
     product_name: "",
     category_id: 0,
   });
   const supabase = createClient();
-  const session = useSession();
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const { data, error } = await supabase.auth.getSession() ;
+      if (error) {
+        console.error('Error fetching session:', error);
+      } else {
+        setSession(data.session);
+      }
+    };
+
+    fetchSession();
+
+    const authListener = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session) {
+        const jwt = jwtDecode<JwtPayloadType>(session.access_token);
+        const userRole = jwt.user_role;
+        setSession(session);
+      }
+    });
+
+    return () => {
+      authListener.data.subscription.unsubscribe();
+    };
+  }, []);
+
+
   const handleAddProduct = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    if(session.data?.user?.id) {
-      const { error } = await supabase.from("product").insert({
-        product_name: data.product_name,
-        category_id: data.category_id,
-        user_id: session.data?.user.id
+    if (session) {
+      const { error } = await supabase.from("products").insert({
+        product_name: productData.product_name,
+        category_id: productData.category_id,
+        user_id: session.user.id,
       });
       console.error(error);
     }
@@ -27,13 +59,18 @@ const ProductForm = () => {
         <input
           type="text"
           placeholder="product name"
-          onChange={(e) => setData({ ...data, product_name: e.target.value })}
+          onChange={(e) =>
+            setproductData({ ...productData, product_name: e.target.value })
+          }
         />
         <input
           type="text"
           placeholder="category id"
           onChange={(e) =>
-            setData({ ...data, category_id: Number(e.target.value) })
+            setproductData({
+              ...productData,
+              category_id: Number(e.target.value),
+            })
           }
         />
         <button

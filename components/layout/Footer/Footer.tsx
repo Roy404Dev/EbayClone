@@ -73,7 +73,7 @@ const Footer = () => {
             <span className="text-xs font-bold">Stay connected</span>
             <li>
               <Link href="" className="text-xs">
-                eBay's Blogs
+                {`eBay's Blogs`}
               </Link>
             </li>
           </ul>

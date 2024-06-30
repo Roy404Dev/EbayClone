@@ -3,12 +3,12 @@ import Link from "next/link";
 import React from "react";
 import { OAuthButtons } from "../login/oauth-signin";
 import Logo from "@/components/UI/Logo";
+import { signup } from "../login/actions";
 
 const page = () => {
   return (
     <div className="h-screen">
       <div className="flex justify-between px-6 py-4">
-        {/* <Image src="/logo.svg" alt="logo" width={50} height={50} /> */}
         <Logo />
         <span className="text-md text-gray-500">
           Already have an account?{" "}
@@ -34,23 +34,27 @@ const page = () => {
               type="text"
               className="w-full rounded-md border-[1px] border-black bg-[#f7f7f7]  pl-4 placeholder:text-black"
               placeholder="First name"
+              name="firstname"
             />
             <input
               type="text"
+              name="lastname"
               className="w-full rounded-md border-[1px] border-black bg-[#f7f7f7]  pl-4 placeholder:text-black"
               placeholder="Last name"
             />
             <input
               type="text"
+              name="email"
               className="col-span-2 w-full rounded-md border-[1px] border-black bg-[#f7f7f7]  pl-4 placeholder:text-black"
               placeholder="Email"
             />
             <input
               type="password"
+              name="password"
               className="col-span-2 w-full rounded-md border-[1px] border-black bg-[#f7f7f7]  pl-4 placeholder:text-black"
               placeholder="Password"
             />
-            <button className="col-span-2 rounded-full bg-[#C7C7C7] py-3 font-bold text-white">
+            <button className="col-span-2 rounded-full bg-[#C7C7C7] py-3 font-bold text-white" type="submit" formAction={signup}>
               Create personal account
             </button>
           </div>

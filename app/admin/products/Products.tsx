@@ -5,11 +5,15 @@ import React from "react";
 const Products = async () => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  const { data: products } = await supabase.from("product").select();
+  const { data: products } = await supabase.from("products").select();
   console.log(products);
   return (
     <div>
-      <ul>{products?.map((product) => <li>{product.product_name}</li>)}</ul>
+      <ul>
+        {products?.map((product, index) => (
+          <li key={index}>{product.product_name}</li>
+        ))}
+      </ul>
     </div>
   );
 };

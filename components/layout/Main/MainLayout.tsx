@@ -16,15 +16,18 @@ import {
 } from "@tanstack/react-query";
 import Link from "next/link";
 import React from "react";
+import { createClient } from "@/utils/supabase/server/server";
+import { cookies } from "next/headers";
 
 const MainLayout = async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: ["popularCategories"],
-    queryFn: usePopularCategoriesQuery,
-  });
+  const cookieStore = cookies();
+  const client = createClient(cookieStore);
+  await queryClient.prefetchQuery(
+    usePopularCategoriesQuery({ client: client }),
+  );
   return (
-    <main className="mx-auto flex flex-col gap-8 px-4 md:px-0">
+    <main className="mx-auto flex max-w-7xl flex-col gap-8 px-4 md:px-0">
       <Carousel />
       <DealBanner bgClr="bg-[#F7F7F7]">
         <DealBannerContent>
@@ -43,13 +46,22 @@ const MainLayout = async () => {
             theme="black"
             additionalClassName="hidden lg:block"
           />
-          <button className="flex align-middle items-center gap-2 md:hidden">Code: SikSikSik<FaArrowRight /></button>
+          <button className="flex items-center gap-2 align-middle md:hidden">
+            Code: SikSikSik
+            <FaArrowRight />
+          </button>
         </DealBannerContent>
       </DealBanner>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <PopularCategories />
       </HydrationBoundary>
-      <BannerLayout bgImage="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1794&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+      <BannerLayout
+        bgProperties={{
+          bgImage:
+            "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1794&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          bgPosition: "center",
+        }}
+      >
         <BannerTitle className="text-4xl font-[700] text-white">
           Adventure awaits with parts and accessories
         </BannerTitle>
@@ -58,7 +70,7 @@ const MainLayout = async () => {
         </BannerSub>
         <EffectButton buttonName="Hop on board" theme="white" />
       </BannerLayout>
-      <BannerLayout bgColor="#F7F7F7">
+      <BannerLayout bgProperties={{ bgColor: "#F7F7F7" }}>
         <BannerTitle className="text-4xl font-[700] text-black">
           Adventure awaits with parts and accessories
         </BannerTitle>

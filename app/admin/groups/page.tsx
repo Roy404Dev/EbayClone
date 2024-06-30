@@ -26,8 +26,8 @@ const page = () => {
       </form>
       <span>List of Groups</span>
       <ul>
-        {groups && groups.map(group => (
-          <li>{group.group_name}</li>
+        {groups && groups.map((group, index) => (
+          <li key={index}>{group.group_name}</li>
         ))}
       </ul>
     </div>

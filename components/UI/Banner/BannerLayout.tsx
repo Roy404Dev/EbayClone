@@ -2,17 +2,31 @@ import React from "react";
 
 const BannerLayout = ({
   children,
-  bgImage,
-  bgColor,
+  bgProperties,
+  height = "lg",
+  rounded = true
 }: {
   children: React.ReactNode;
-  bgImage?: string;
-  bgColor?: string;
+  bgProperties: {
+    bgImage?: string;
+    bgColor?: string;
+    bgPosition?: string;
+    maxWidthText?: string;
+  };
+  height?: "md" | "lg";
+  rounded?: boolean;
 }) => {
-  const style = bgImage ? { backgroundImage: `url("${bgImage}")` } : {};
+  const style = bgProperties.bgImage
+    ? { backgroundImage: `url("${bgProperties.bgImage}")` }
+    : {};
+  const heights = {
+    md: "h-48",
+    lg: "h-80",
+  };
+  const customHeight = heights[height];
   return (
     <div
-      className={`${bgColor ? `bg-[${bgColor}]` : ""} relative mx-auto mb-5 flex h-80 w-full  max-w-[85em] flex-col items-start gap-4 rounded-2xl bg-cover bg-center px-7 py-4`}
+      className={`${bgProperties.bgColor ? `bg-[${bgProperties.bgColor}]` : ""} relative mx-auto mb-5 flex ${customHeight} w-full flex-col items-start gap-4 ${rounded ? 'rounded-2xl' : 'rounded-none'} bg-cover px-7 py-4  bg-${bgProperties.bgPosition}`}
       style={style}
     >
       {children}
