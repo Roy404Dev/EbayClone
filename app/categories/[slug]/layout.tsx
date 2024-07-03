@@ -1,9 +1,8 @@
 import BannerLayout from "@/components/UI/Banner/BannerLayout";
 import BannerSub from "@/components/UI/Banner/BannerSub";
 import BannerTitle from "@/components/UI/Banner/BannerTitle";
-import EffectButton from "@/components/UI/Buttons/EffectButton";
 import Header from "@/components/layout/Header/Header";
-import React, { useState } from "react";
+import React from "react";
 import Aside from "./Aside";
 import {
   HydrationBoundary,
@@ -28,7 +27,6 @@ const layout = async ({
   await queryClient.prefetchQuery(
     useSubCategoriesQuery({ client: client, slug: params.slug }),
   );
-
   const bgProperties = {
     bgImage:
       "https://images.unsplash.com/photo-1606088295735-d8148a172c0b?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -36,10 +34,8 @@ const layout = async ({
     maxWidth: "95em",
   };
 
-  // const store = useSelector((state: RootState) => state.category.value);
-
   return (
-    <div className="mx-auto max-w-7xl">
+    <div className="mx-auto max-w-7xl px-4">
       <Header></Header>
       <div className="grid grid-cols-[18%_minmax(900px,_1fr)]">
         <div className="col-span-2">
@@ -58,24 +54,7 @@ const layout = async ({
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Aside params={params} />
         </HydrationBoundary>
-        <div className="">
-          {/* main layout  */}
-          <BannerLayout
-            bgProperties={{
-              bgImage:
-                "https://images.unsplash.com/photo-1625463006115-09f08489f591?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-              bgPosition: "center",
-            }}
-            rounded={false}
-          >
-            <BannerTitle>Reconditioned tech</BannerTitle>
-            <BannerSub>See the savings on refurb devices</BannerSub>
-            <EffectButton buttonName="View the deal" theme="black" />
-          </BannerLayout>
-          {/* ===Shop by category==== */}
-          <span>Shop by Category</span>
-          <ul className=""></ul>
-        </div>
+        {children}
       </div>
     </div>
   );

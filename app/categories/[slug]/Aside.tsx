@@ -10,7 +10,6 @@ const Aside = ({params}: {params: {slug: string}}) => {
   const dispatch = useDispatch();
   const client = useSupabaseBrowser();
   const { data: subCategories } = useQuery(useSubCategoriesQuery({client: client, slug: params.slug}));
-  console.log(subCategories);
   let ranEffect = true;
   useEffect(() => {
     subCategories && dispatch(increment(subCategories));
@@ -19,7 +18,7 @@ const Aside = ({params}: {params: {slug: string}}) => {
     };
   }, [subCategories]);
   return (
-    <div>
+    <div className="hidden md:block">
       <span className="text-sm font-bold">Shop by Category</span>
       <ul>
         {subCategories &&

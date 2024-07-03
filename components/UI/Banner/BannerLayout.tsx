@@ -4,7 +4,7 @@ const BannerLayout = ({
   children,
   bgProperties,
   height = "lg",
-  rounded = true
+  rounded = true,
 }: {
   children: React.ReactNode;
   bgProperties: {
@@ -26,7 +26,7 @@ const BannerLayout = ({
   const customHeight = heights[height];
   return (
     <div
-      className={`${bgProperties.bgColor ? `bg-[${bgProperties.bgColor}]` : ""} relative mx-auto mb-5 flex ${customHeight} w-full flex-col items-start gap-4 ${rounded ? 'rounded-2xl' : 'rounded-none'} bg-cover px-7 py-4  bg-${bgProperties.bgPosition}`}
+      className={`${bgProperties.bgColor ? `bg-[${bgProperties.bgColor}]` : ""} relative mx-auto mb-5 flex ${customHeight} w-full flex-col items-start   gap-4 ${rounded ? "rounded-2xl" : "rounded-none"} bg-cover px-7 py-4  bg-${bgProperties.bgPosition}`}
       style={style}
     >
       {children}
