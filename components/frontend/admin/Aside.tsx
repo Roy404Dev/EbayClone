@@ -28,9 +28,18 @@ const Aside = () => {
           </li>
           <li>
             <Link
-              href="/admin/categories"
+              href="/admin/banners"
               className={`cursor-pointer p-4 text-gray-500 ${selected === 3 ? "border-r-4 border-sky-600 bg-[#F4F6F9] text-black" : ""}`}
               onClick={() => setSelected(3)}
+            >
+              Banners
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/admin/categories"
+              className={`cursor-pointer p-4 text-gray-500 ${selected === 4 ? "border-r-4 border-sky-600 bg-[#F4F6F9] text-black" : ""}`}
+              onClick={() => setSelected(4)}
             >
               Categories
             </Link>
@@ -38,8 +47,8 @@ const Aside = () => {
           <li>
             <Link
               href="/admin/users"
-              className={`cursor-pointer p-4 text-gray-500 ${selected === 4 ? "border-r-4 border-sky-600 bg-[#F4F6F9] text-black" : ""}`}
-              onClick={() => setSelected(4)}
+              className={`cursor-pointer p-4 text-gray-500 ${selected === 5 ? "border-r-4 border-sky-600 bg-[#F4F6F9] text-black" : ""}`}
+              onClick={() => setSelected(5)}
             >
               Users
             </Link>
@@ -47,8 +56,8 @@ const Aside = () => {
           <li>
             <Link
               href="/admin/groups"
-              className={`cursor-pointer p-4 text-gray-500 ${selected === 5 ? "border-r-4 border-sky-600 bg-[#F4F6F9] text-black" : ""}`}
-              onClick={() => setSelected(5)}
+              className={`cursor-pointer p-4 text-gray-500 ${selected === 6 ? "border-r-4 border-sky-600 bg-[#F4F6F9] text-black" : ""}`}
+              onClick={() => setSelected(6)}
             >
               Groups
             </Link>

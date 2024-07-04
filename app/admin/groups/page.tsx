@@ -12,8 +12,6 @@ const page = () => {
     event.preventDefault();
     createGroupMutation.mutate({ groupName: groupName });
   };
-  const {data: session} = useSession();
-  console.log(session);
   return (
     <div className="px-8 py-8">
       <form onSubmit={onSubmit} className="flex gap-2">

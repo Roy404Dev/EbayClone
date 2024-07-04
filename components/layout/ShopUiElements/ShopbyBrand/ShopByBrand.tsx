@@ -4,7 +4,7 @@ import React from "react";
 import ShopByBrandItem from "./ShopByBrandItem";
 import Image from "next/image";
 
-export const revalidate = 60;
+export const revalidate = 360;
 
 const ShopByBrand = async () => {
   const cookieStore = cookies();
