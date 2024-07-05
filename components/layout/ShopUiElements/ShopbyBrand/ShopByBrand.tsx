@@ -16,14 +16,14 @@ const ShopByBrand = async () => {
   return (
     <section>
       <span className="text-2xl font-semibold">Shop by Brand</span>
-      <ul className="grid grid-cols-5 gap-16 mt-8">
+      <ul className="grid grid-cols-5 gap-8 mt-8">
         {shopByBrand?.map((el) => (
           <li key={el.id} className="text-center">
             <ShopByBrandItem>
               <Image
                 alt={el.brand_name + " logo"}
-                height={205}
-                width={205}
+                height={120}
+                width={120}
                 src={el.brand_image_url || ""}
               />
             </ShopByBrandItem>

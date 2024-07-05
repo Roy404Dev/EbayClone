@@ -35,8 +35,8 @@ const layout = async ({
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4">
-      <Header></Header>
+    <div className="mx-auto max-w-[92rem] px-4">
+      <Header screenDimention="fullScreen" />
       <div className="grid grid-cols-[18%_minmax(900px,_1fr)]">
         <div className="col-span-2">
           <BannerLayout bgProperties={bgProperties} height="md" rounded={false}>

@@ -6,10 +6,14 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import useSupabaseBrowser from "@/utils/supabase-browser";
+import useCategoryBrandsQuery from "@/hooks/queries/categoryBrands/use-categoryBrands-query";
 const Aside = ({params}: {params: {slug: string}}) => {
   const dispatch = useDispatch();
   const client = useSupabaseBrowser();
+
+
   const { data: subCategories } = useQuery(useSubCategoriesQuery({client: client, slug: params.slug}));
+
   let ranEffect = true;
   useEffect(() => {
     subCategories && dispatch(increment(subCategories));
@@ -17,6 +21,10 @@ const Aside = ({params}: {params: {slug: string}}) => {
       ranEffect = false;
     };
   }, [subCategories]);
+
+
+  const {data: categoryBrands} = useCategoryBrandsQuery(params.slug.toLocaleLowerCase());
+
   return (
     <div className="hidden md:block">
       <span className="text-sm font-bold">Shop by Category</span>
@@ -26,6 +34,17 @@ const Aside = ({params}: {params: {slug: string}}) => {
             <li key={subCategory.id}>
               <Link href="#" className="text-sm text-gray-700 hover:underline">
                 {subCategory.label?.replace(/[_]/g, " & ").replace(/[-]/g, " ")}
+              </Link>
+            </li>
+          ))}
+      </ul>
+      <span className="text-sm font-bold">Your favorite brands</span>
+      <ul>
+      {categoryBrands &&
+          categoryBrands.map((categoryBrand) => (
+            <li key={categoryBrand.id}>
+              <Link href={`/categories/${categoryBrand.brand_name}`} className="text-sm text-gray-700 hover:underline">
+                {categoryBrand.brand_name}
               </Link>
             </li>
           ))}

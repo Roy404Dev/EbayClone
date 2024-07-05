@@ -2,11 +2,14 @@ import Image from "next/image";
 import React from "react";
 import logo from "@/_assets/images/logo.svg";
 
-export default function Header() {
-  
+export default function Header({screenDimention = "normal"}: {screenDimention?: 'fullScreen' | 'normal'}) {
+  const variants = {
+    fullScreen: 'max-w-[92rem]',
+    normal: 'max-w-7xl'
+  }
   return (
-    <div className="border-b-2 border-gray-200">
-      <div className="mx-auto flex max-w-7xl items-center gap-2 px-4 xl:px-0">
+    <div className="border-b-2 border-gray-200 ">
+      <div className={`mx-auto flex ${variants[screenDimention]} items-center gap-2 px-4 xl:px-0`}>
         <Image src={logo} alt="logo" height={100} />
         <div className="flex w-full items-center border-2 border-black px-4 py-2">
           <input
