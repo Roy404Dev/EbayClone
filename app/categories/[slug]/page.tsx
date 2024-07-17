@@ -2,12 +2,13 @@ import BannerLayout from "@/components/UI/Banner/BannerLayout";
 import BannerSub from "@/components/UI/Banner/BannerSub";
 import BannerTitle from "@/components/UI/Banner/BannerTitle";
 import EffectButton from "@/components/UI/Buttons/EffectButton";
+import FrequentlyAskedQuestions from "@/components/layout/FrequentlyAskedQuestions";
 import ShopByBrand from "@/components/layout/ShopUiElements/ShopbyBrand/ShopByBrand";
 import React from "react";
 
 const page = () => {
   return (
-    <div className="col-span-2 md:col-span-1">
+    <div className="col-span-2 lg:col-auto">
       {/* main layout  */}
       <BannerLayout
         bgProperties={{
@@ -21,11 +22,14 @@ const page = () => {
         <BannerSub>See the savings on refurb devices</BannerSub>
         <EffectButton buttonName="View the deal" theme="black" />
       </BannerLayout>
-      {/* ===Shop by category==== */}
-      <span>Shop by Category</span>
-      <ul className=""></ul>
-      {/* Shop by Brand  */}
-      <ShopByBrand />
+      {/* TODO: IF BRAND SELECTED DONT SHOW IT  */}
+      <div className="px-8">
+        {/* ===Shop by category==== */}
+        <ul className=""></ul>
+        {/* Shop by Brand  */}
+        <ShopByBrand />
+        <FrequentlyAskedQuestions />
+      </div>
     </div>
   );
 };

@@ -5,8 +5,8 @@ import { redirect } from "next/navigation";
 const PrivateWrapper = async ({ children }: { children: JSX.Element }) => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  const { data, error } = await supabase.auth.getUser();
-  if (error || !data?.user) {
+  const { data, error } = await supabase.auth.getSession();
+  if (error || !data.session?.user) {
     redirect("/");
   }
   return children;

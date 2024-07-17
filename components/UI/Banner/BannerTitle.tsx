@@ -11,7 +11,7 @@ const BannerTitle = ({
 }) => {
   return (
     <div className={`w-full ${maxWidth ? `max-w-[${maxWidth}]` : "max-w-80"}`}>
-      <span className={className + ' font-bold text-3xl'}>{children}</span>
+      <span className={className + " text-clamp font-bold"}>{children}</span>
     </div>
   );
 };

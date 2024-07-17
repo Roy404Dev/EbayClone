@@ -21,7 +21,10 @@ const config: Config = {
       'lg': '1024px',
       'xl': '1280px',
       '2xl': '1536px',
-    }
+    },
+    fontSize: {
+      clamp: "clamp(1rem, 5vw, 1.75rem)",
+    },
   },
   
   plugins: [],

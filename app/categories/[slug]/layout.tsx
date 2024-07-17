@@ -12,6 +12,7 @@ import {
 import useSubCategoriesQuery from "@/hooks/func/use-subCategories-query";
 import { createClient } from "@/utils/supabase/server/server";
 import { cookies } from "next/headers";
+import Footer from "@/components/layout/Footer/Footer";
 
 const layout = async ({
   children,
@@ -35,28 +36,36 @@ const layout = async ({
   };
 
   return (
-    <div className="mx-auto max-w-[92rem] px-4">
-      <Header screenDimention="fullScreen" />
-      <div className="grid grid-cols-[18%_minmax(900px,_1fr)]">
-        <div className="col-span-2">
-          <BannerLayout bgProperties={bgProperties} height="md" rounded={false}>
-            <BannerTitle
-              className="max-w-[90em] text-2xl font-bold"
-              maxWidth="90"
+    <>
+     {/* grid-cols-[18%_minmax(900px,_1fr)] */}
+      <div className="mx-auto mb-12 max-w-[92rem] px-4">
+        <Header screenDimention="fullScreen" />
+        <div className="grid gap-8">
+          <div className="col-span-2">
+            <BannerLayout
+              bgProperties={bgProperties}
+              height="md"
+              rounded={false}
             >
-              Welcome to the world of tech
-            </BannerTitle>
-            <BannerSub className=" text-lg font-medium">
-              Browse all the devices you need, from smartphones to PCs.
-            </BannerSub>
-          </BannerLayout>
+              <BannerTitle
+                className="max-w-[90em] text-2xl font-bold"
+                maxWidth="90"
+              >
+                Welcome to the world of tech
+              </BannerTitle>
+              <BannerSub className=" text-lg font-medium">
+                Browse all the devices you need, from smartphones to PCs.
+              </BannerSub>
+            </BannerLayout>
+          </div>
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <Aside params={params} />
+          </HydrationBoundary>
+          {children}
         </div>
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          <Aside params={params} />
-        </HydrationBoundary>
-        {children}
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

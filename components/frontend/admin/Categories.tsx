@@ -18,9 +18,15 @@ const Categories = () => {
 
   const handleAddSubCategory = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
+    const multipleValues = subCategoryInputData.label.split(' ').map((el) => (
+      {
+        category_id: subCategoryInputData.category_id,
+        label: el
+      }
+    ))
     const { error } = await supabase
       .from("subCategories")
-      .insert(subCategoryInputData);
+      .insert(multipleValues);
     error && console.error(error);
   };
 
@@ -41,12 +47,12 @@ const Categories = () => {
       </form>
       <form className="flex gap-4 items-center">
         <span>Add SubCategory</span>
-        <input
-          type="text"
+        <textarea
           name="label"
           placeholder="Add label"
           required
           aria-labelledby="submit-btn"
+          className="w-96"
           onChange={(e) => setSubCategoryInputData({...subCategoryInputData, label: e.target.value})}
         />
         <input

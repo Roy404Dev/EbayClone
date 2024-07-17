@@ -24,9 +24,10 @@ const BannerLayout = ({
     lg: "h-80",
   };
   const customHeight = heights[height];
+  console.log(customHeight);
   return (
     <div
-      className={`${bgProperties.bgColor ? `bg-[${bgProperties.bgColor}]` : ""} relative mx-auto mb-5 flex ${customHeight} w-full flex-col items-start   gap-4 ${rounded ? "rounded-2xl" : "rounded-none"} bg-cover px-7 py-4  bg-${bgProperties.bgPosition}`}
+      className={`${bgProperties.bgColor ? `bg-[${bgProperties.bgColor}]` : ""} relative mx-auto mb-5 flex max-${customHeight} h-full w-full flex-col items-start   gap-4 ${rounded ? "rounded-2xl" : "rounded-none"} bg-cover px-7 py-4  bg-${bgProperties.bgPosition}`}
       style={style}
     >
       {children}

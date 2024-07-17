@@ -18,9 +18,10 @@ const ShopByBrand = async () => {
   return (
     <section>
       <span className="text-2xl font-semibold">Shop by Brand</span>
-      <ul className="mt-8 grid grid-cols-5 gap-8">
+      {/*  */}
+      <ul className="mt-8 grid grid-cols-4 gap-8 lg:grid-cols-5">
         {shopByBrand?.map((el) => (
-          <li key={el.id} className="text-center">
+          <li key={el.id} className=" text-center">
             <Link href={`/categories/${el.brand_name}`}>
               <ShopByBrandItem>
                 <Image
@@ -29,6 +30,11 @@ const ShopByBrand = async () => {
                   width={120}
                   src={el.brand_image_url || ""}
                 />
+                {/* <img
+                  src={el.brand_image_url || ""}
+                  alt=""
+                  className="h-full w-full"
+                /> */}
               </ShopByBrandItem>
               <span>{el.brand_name}</span>
             </Link>

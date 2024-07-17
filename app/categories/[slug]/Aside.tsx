@@ -7,12 +7,13 @@ import { useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import useSupabaseBrowser from "@/utils/supabase-browser";
 import useCategoryBrandsQuery from "@/hooks/queries/categoryBrands/use-categoryBrands-query";
-const Aside = ({params}: {params: {slug: string}}) => {
+const Aside = ({ params }: { params: { slug: string } }) => {
   const dispatch = useDispatch();
   const client = useSupabaseBrowser();
 
-
-  const { data: subCategories } = useQuery(useSubCategoriesQuery({client: client, slug: params.slug}));
+  const { data: subCategories } = useQuery(
+    useSubCategoriesQuery({ client: client, slug: params.slug }),
+  );
 
   let ranEffect = true;
   useEffect(() => {
@@ -22,11 +23,12 @@ const Aside = ({params}: {params: {slug: string}}) => {
     };
   }, [subCategories]);
 
-
-  const {data: categoryBrands} = useCategoryBrandsQuery(params.slug.toLocaleLowerCase());
+  const { data: categoryBrands } = useCategoryBrandsQuery(
+    params.slug.toLocaleLowerCase(),
+  );
 
   return (
-    <div className="hidden md:block">
+    <div className="hidden lg:block">
       <span className="text-sm font-bold">Shop by Category</span>
       <ul>
         {subCategories &&
@@ -38,15 +40,21 @@ const Aside = ({params}: {params: {slug: string}}) => {
             </li>
           ))}
       </ul>
-      <span className="text-sm font-bold">Your favorite brands</span>
       <ul>
-      {categoryBrands &&
+        {categoryBrands &&
           categoryBrands.map((categoryBrand) => (
-            <li key={categoryBrand.id}>
-              <Link href={`/categories/${categoryBrand.brand_name}`} className="text-sm text-gray-700 hover:underline">
-                {categoryBrand.brand_name}
-              </Link>
-            </li>
+            <>
+              {/* If categoryBrands doesnt exist then "Your favorite brands should be showed" */}
+              <span className="text-sm font-bold">Your favorite brands</span>
+              <li key={categoryBrand.id}>
+                <Link
+                  href={`/categories/${categoryBrand.brand_name}`}
+                  className="text-sm text-gray-700 hover:underline"
+                >
+                  {categoryBrand.brand_name}
+                </Link>
+              </li>
+            </>
           ))}
       </ul>
     </div>

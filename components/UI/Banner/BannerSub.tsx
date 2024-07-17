@@ -7,7 +7,7 @@ const BannerSub = ({
   children: React.ReactNode;
   className?: string;
 }) => {
-  return <p className={className + ' text-[#191919] font-semibold'}>{children}</p>;
+  return <p className={className + ' text-[#191919] font-semibold text-clamp'}>{children}</p>;
 };
 
 export default BannerSub;

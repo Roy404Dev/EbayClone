@@ -5,7 +5,7 @@ import React, { useState } from "react";
 const Aside = () => {
   const [selected, setSelected] = useState(1);
   return (
-    <aside className=" h-screen rounded-lg border-4">
+    <aside className="h-screen rounded-lg border-4">
       <div className="mt-16">
         <ul className="grid gap-4">
           <li>
